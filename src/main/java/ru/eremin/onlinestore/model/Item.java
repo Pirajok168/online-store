@@ -1,9 +1,6 @@
 package ru.eremin.onlinestore.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -22,11 +19,12 @@ public class Item {
     @Min(0)
     private double price;
 
-    @NotBlank
-    private String category;
-
     @Min(0) @Max(5)
     private int rating;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -37,8 +35,9 @@ public class Item {
     public void setDescription(String description) { this.description = description; }
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
     public int getRating() { return rating; }
     public void setRating(int rating) { this.rating = rating; }
+
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 }
